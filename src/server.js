@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const animalRoutes = require ('./routes/animal-route');
+require ('./configs/mongodb').connectDB();
+
 
 const app = express();
 

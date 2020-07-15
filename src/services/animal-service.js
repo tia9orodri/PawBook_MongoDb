@@ -1,27 +1,34 @@
-const animals = require('./animals.json');
+const db = require('../configs/mongodb.js').getDB();
+const ObjectId = require('mongodb').ObjectID;
 
 exports.getAnimals = () => {
     return new Promise((resolve, reject) => {
-        resolve(animals);
+        db
+            .collection('animals')
+            .find()
+            .project({ 'nome': 1, 'idade': 1 })
+            .toArray()
+            .then(animals => resolve(animals))
+            .catch(err => reject(err));
     });
 };
+
 exports.getAnimal = id => {
     return new Promise((resolve, reject) => {
-        resolve(animals.find(animal => animal._id === id));
+        db
+            .collection('animals')
+            .findOne({ _id: ObjectId(id) })
+            .then(animal => resolve(animal))
+            .catch(err => reject(err));
     });
 };
-exports.addAnimal = animal => {
+
+exports.insertAnimal = body => {
     return new Promise((resolve, reject) => {
-        resolve({ inserted: 1 });
+        db
+            .collection('animals')
+            .insertOne({ nome: body.nome, idade: body.idade, localidade: body.localidade, distrito: body.distrito })
+            .then(res => resolve({ inserted: 1, _id: res.insertedId }))
+            .catch(err => reject(err));
     });
 };
-exports.updateAnimal = (id, animal) => {
-    return new Promise((resolve, reject) => {
-        resolve({ updated: 1 });
-    });
-};
-exports.deleteAnimal = id => {
-    return new Promise((resolve, reject) => {
-        resolve({ deleted: 1 });
-    });
-}; 
