@@ -3,7 +3,7 @@ const jwt = require("../helpers/jwt.js");
 
 exports.register = (req, res) => {
   userService
-    .register(req.body.username, req.body.password, req.body.role, req.body.email, req.body.name)
+    .register(req.body.username, req.body.password,req.body.email,req.body.name, req.body.role )
     .then(() => res.status(200).json({ success: true }))
     .catch((message) => res.status(500).send(message));
 };
