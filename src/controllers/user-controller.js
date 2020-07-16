@@ -1,4 +1,4 @@
-const userService = require('../services/user-mongodb');
+const userService = require('../services/user-mongodb.js');
 const jwt = require("../helpers/jwt.js");
 
 exports.register = (req, res) => {

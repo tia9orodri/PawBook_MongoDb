@@ -3,7 +3,7 @@ const ObjectId = require ('mongodb').ObjectID;
 const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
 
-exports.register = (username, rawPassword, role, email, name) => {
+exports.register = (username, rawPassword,email, name,role) => {
     return new Promise((resolve, reject) => {
       try {
         db.collection("users")
@@ -15,7 +15,7 @@ exports.register = (username, rawPassword, role, email, name) => {
                   const dataIv = cipher.generateIv();
                   const password = cipher.encrypt(rawPassword, dataIv);
                   db.collection("users")
-                    .insertOne({ username, password, role, email, name, dataIv})
+                    .insertOne({ username, password,  email, name,role, dataIv})
                     .then(() => resolve())
                     .catch((error) => reject(error.message));
                 } else reject("invalid password");
