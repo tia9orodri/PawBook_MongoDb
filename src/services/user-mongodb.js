@@ -32,3 +32,37 @@ exports.authenticate = (username, rawPassword) => {
             .catch((error) => reject(error));
     });
 };
+
+exports.getAnimals = (userId) => {
+    return new Promise((resolve, reject) => {
+        db.collection("users")
+            .findOne({ _id: ObjectId(userId) })
+            .then((user) => {
+                if (user.animals) {
+                    return db.collection("animals")
+                        .find({ _id: { $in: user.animals } })
+                        .project({ nome: 1, idade: 1 })
+                        .toArray();
+                } else return [];
+            })
+            .then((animals) => resolve(animals))
+            .catch((err) => reject(err));
+    });
+};
+
+exports.addAnimal = (userId, animalId) => {
+    return new Promise((resolve, reject) => {
+        db.collection("users")
+            .updateOne({ _id: ObjectId(userId) }, { $push: { animals: ObjectId(animalId) } })
+            .then(() => resolve())
+            .catch((err) => reject(err));
+    });
+};
+exports.removeAnimal = (userId, animalId) => {
+    return new Promise((resolve, reject) => {
+        db.collection("users")
+            .updateOne({ _id: ObjectId(userId) }, { $pull: { animals: ObjectId(animalId) } })
+            .then(() => resolve())
+            .catch((err) => reject(err));
+    });
+};

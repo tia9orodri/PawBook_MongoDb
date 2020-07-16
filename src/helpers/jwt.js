@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const key = 'kfjkjURWojajjvclsC3pUUo8gb6A3omh';
+const key = process.env.JWT_KEY;
 
 exports.createToken = (payload) => {
     return new Promise((resolve, reject) => {
