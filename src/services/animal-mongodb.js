@@ -2,12 +2,12 @@ const db = require("../configs/mongodb.js").getDB();
 const ObjectId = require("mongodb").ObjectID;
 
 
-exports.getAnimals = (queryString) => {
+exports.getAnimals = (/*queryString*/) => {
     return new Promise((resolve, reject) => {
         let filter = {};
-        if (queryString.search) {
+       /* if (queryString.search) {
             filter.title = { $regex: new RegExp(queryString.search, "i") };
-        }
+        }*/
         db.collection("animals").find(filter).project({ nome: 1, idade: 1 }).toArray()
             .then((animals) => resolve(animals))
             .catch((err) => reject(err));

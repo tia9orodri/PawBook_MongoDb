@@ -1,3 +1,8 @@
+const db = require("../configs/mongodb").getDB();
+const cipher = require("../helpers/cipher");
+const roles = require("../helpers/roles");
+const ObjectId = require("mongodb").ObjectID;
+
 exports.register = (username, rawPassword, role) => {
     return new Promise((resolve, reject) => {
         try {
