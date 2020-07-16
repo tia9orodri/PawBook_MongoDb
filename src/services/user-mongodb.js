@@ -4,6 +4,7 @@ const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
 
 exports.register = (username, rawPassword,email, name,role) => {
+  console.log(username);
     return new Promise((resolve, reject) => {
       try {
         db.collection("users")
@@ -18,8 +19,9 @@ exports.register = (username, rawPassword,email, name,role) => {
                     .insertOne({ username, password,  email, name,role, dataIv})
                     .then(() => resolve())
                     .catch((error) => reject(error.message));
-                } else reject("invalid password");
-              } else reject("invalid role");
+                } else 
+                reject("invalid password + 123");
+              } else reject(role);
             } else reject("username already in use");
           })
           .catch((error) => reject(error.message));
