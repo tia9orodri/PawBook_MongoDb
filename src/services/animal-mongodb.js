@@ -5,9 +5,9 @@ const ObjectId = require("mongodb").ObjectID;
 exports.getAnimals = (/*queryString*/) => {
     return new Promise((resolve, reject) => {
         let filter = {};
-       /* if (queryString.search) {
-            filter.title = { $regex: new RegExp(queryString.search, "i") };
-        }*/
+        /* if (queryString.search) {
+             filter.title = { $regex: new RegExp(queryString.search, "i") };
+         }*/
         db.collection("animals").find(filter).project({ nome: 1, idade: 1 }).toArray()
             .then((animals) => resolve(animals))
             .catch((err) => reject(err));
@@ -28,9 +28,11 @@ exports.insertAnimal = (body) => {
         db.collection("animals")
             .insertOne({
                 nome: body.nome,
+                tipo: body.tipo,
                 idade: body.idade,
+                raca: body.raca,
                 localidade: body.localidade,
-                distrito: body.distrito,
+                observacoes: body.observacoes
             })
             .then((res) => resolve({ inserted: 1, _id: res.insertedId }))
             .catch((err) => reject(err));
@@ -45,9 +47,11 @@ exports.updateAnimal = (id, body) => {
                 {
                     $set: {
                         nome: body.nome,
+                        tipo: body.tipo,
                         idade: body.idade,
+                        raca: body.raca,
                         localidade: body.localidade,
-                        distrito: body.distrito,
+                        observacoes: body.observacoes
                     },
                 }
             )

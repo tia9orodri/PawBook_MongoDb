@@ -27,7 +27,12 @@ exports.insertAnimal = body => {
     return new Promise((resolve, reject) => {
         db
             .collection('animals')
-            .insertOne({ nome: body.nome, idade: body.idade, localidade: body.localidade, distrito: body.distrito })
+            .insertOne({nome: body.nome,
+                tipo: body.tipo,
+                idade: body.idade,
+                raca: body.raca,
+                localidade: body.localidade,
+                observacoes: body.observacoes })
             .then(res => resolve({ inserted: 1, _id: res.insertedId }))
             .catch(err => reject(err));
     });
