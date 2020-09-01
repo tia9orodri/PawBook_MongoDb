@@ -4,10 +4,9 @@ const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
 
 exports.register = (username, rawPassword,email, name,role) => {
-  console.log(username);
     return new Promise((resolve, reject) => {
       try {
-        db.collection("users")
+        db.collection('users')
           .findOne({ username: username })
           .then((found) => {
             if (!found) {
@@ -15,7 +14,7 @@ exports.register = (username, rawPassword,email, name,role) => {
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d$@$!%*#?&-.]{8,}$/.test(rawPassword)) {
                   const dataIv = cipher.generateIv();
                   const password = cipher.encrypt(rawPassword, dataIv);
-                  db.collection("users")
+                  db.collection('users')
                     .insertOne({ username, password,  email, name,role, dataIv})
                     .then(() => resolve())
                     .catch((error) => reject(error.message));
@@ -33,7 +32,7 @@ exports.register = (username, rawPassword,email, name,role) => {
 
   exports.authenticate = (username, rawPassword) => {
     return new Promise((resolve, reject) => {
-      db.collection("users")
+      db.collection('users')
         .findOne({ username: username })
         .then((user) => {
           if (user) {

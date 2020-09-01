@@ -19,8 +19,8 @@ Promise.all([db.connectDB()])
     app.use(bodyParser.json());
     app.use(cors());
 
-    app.use("/animal", require("./routes/animal-route.js"));
-    app.use("/user", require("./routes/user-route.js"));
+    app.use("/animal", require('./routes/animal-route.js'));
+    app.use("/user", require('./routes/user-route.js'));
 
     app.use("/", express.static(path.join(__dirname, "..", "react")));
 
