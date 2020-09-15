@@ -6,7 +6,7 @@ const roles = require("../helpers/roles");
 exports.register = (username, rawPassword,email, name,role) => {
     return new Promise((resolve, reject) => {
       try {
-        db.collection('users')
+        db.collection("users")
           .findOne({ username: username })
           .then((found) => {
             if (!found) {
@@ -14,7 +14,7 @@ exports.register = (username, rawPassword,email, name,role) => {
                 if (/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d$@$!%*#?&-.]{8,}$/.test(rawPassword)) {
                   const dataIv = cipher.generateIv();
                   const password = cipher.encrypt(rawPassword, dataIv);
-                  db.collection('users')
+                  db.collection("users")
                     .insertOne({ username, password,  email, name,role, dataIv})
                     .then(() => resolve())
                     .catch((error) => reject(error.message));
@@ -32,7 +32,7 @@ exports.register = (username, rawPassword,email, name,role) => {
 
   exports.authenticate = (username, rawPassword) => {
     return new Promise((resolve, reject) => {
-      db.collection('users')
+      db.collection("users")
         .findOne({ username: username })
         .then((user) => {
           if (user) {
@@ -52,7 +52,7 @@ exports.register = (username, rawPassword,email, name,role) => {
           filter.user = { $regex: new RegExp(queryString.search, "i") };
       }
         db
-            .collection('users')
+            .collection("users")
             .find(filter)
             .project({ '_id': 1, 'username': 1, 'role': 1, 'email': 1, 'name': 1 })
             .toArray()
@@ -64,7 +64,7 @@ exports.register = (username, rawPassword,email, name,role) => {
 exports.getUser = id => {
     return new Promise((resolve, reject) => {
         db
-            .collection('users')
+            .collection("users")
             .findOne({ _id: ObjectId(id) })
             .then(user => resolve(user))
             .catch(err => reject(err));
@@ -74,7 +74,7 @@ exports.getUser = id => {
 exports.updateUser = (id, body) => {
     return new Promise((resolve, reject) => {
         db
-            .collection('users')
+            .collection("users")
             .updateOne(
                 { _id: ObjectId(id) },
                 {
@@ -94,7 +94,7 @@ exports.updateUser = (id, body) => {
 exports.deleteUser = id => {
     return new Promise((resolve, reject) => {
         db
-        .collection('users')
+        .collection("users")
         .deleteOne(
             { _id: ObjectId(id) },
         )
