@@ -9,7 +9,7 @@ const options = process.env.MONGO_CERT
   }
   :{useUnifiedTopology:true};
 
-const mongodb = new MongoClient(process.env.MONGO_URI, options);
+const mongodb = new MongoClient("mongodb://localhost:27017", { useUnifiedTopology: true });
 
 const connectDB = () => {
   return new Promise((resolve, reject) => {
