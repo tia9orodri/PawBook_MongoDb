@@ -97,6 +97,7 @@ exports.updateUser = (id, body) => {
         {
           $set: {
             username: body.username,
+            password:body.password,
             role: body.role,
             email: body.email,
             name: body.name

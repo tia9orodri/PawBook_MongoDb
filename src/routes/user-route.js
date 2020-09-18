@@ -8,6 +8,7 @@ const roles = require('../helpers/roles.js');
 //define rotas
 router.post("/register", userController.register);
 router.post("/login", userController.login);
+router.put("/edit/:id", userController.putUser);
 
 //define rotas
 router.get (""/*, authorize(roles.Admin)+*/, userController.getUsers);
