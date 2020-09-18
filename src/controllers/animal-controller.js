@@ -15,6 +15,7 @@ exports.getAnimal = (req, res) => {
 };
 
 exports.postAnimal = (req, res) => {
+
     animalService
         .insertAnimal(req.body)
         .then(result => res.json(result))

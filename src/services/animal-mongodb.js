@@ -34,7 +34,7 @@ exports.insertAnimal = (body) => {
                 localidade: body.localidade,
                 observacoes: body.observacoes
             })
-            .then((res) => resolve({ inserted: 1, _id: res.insertedId }))
+            .then((res) =>  resolve({ inserted: 1, _id: res.insertedId})) 
             .catch((err) => reject(err));
     });
 };
