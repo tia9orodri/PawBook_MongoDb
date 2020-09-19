@@ -27,7 +27,6 @@ exports.register = (username, rawPassword, email, name, role) => {
                     
                   })
                   .catch((error) => {
-                    console.log("reject", JSON.stringify(error,null,4));
                     reject(error.message);
                   });
               } else
@@ -37,11 +36,9 @@ exports.register = (username, rawPassword, email, name, role) => {
         })
         
         .catch((error) => {
-          console.log("erro => ", JSON.stringify(error,null,4));
           reject(error.message);
         });
     } catch (error) {
-      console.log("catching=>   ", JSON.stringify(error, null, 4) );
       reject(error.message);
     }
   });
@@ -79,6 +76,7 @@ exports.getUsers = (queryString) => {
 };
 
 exports.getUser = id => {
+    console.log(id);
   return new Promise((resolve, reject) => {
     db
       .collection("users")
