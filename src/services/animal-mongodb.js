@@ -8,7 +8,7 @@ exports.getAnimals = (/*queryString*/) => {
         /* if (queryString.search) {
              filter.title = { $regex: new RegExp(queryString.search, "i") };
          }*/
-        db.collection("animals").find(filter).project({ nome: 1, idade: 1, tipo: 1, raca: 1, localidade: 1, observacoes:1 }).toArray()
+        db.collection("animals").find(filter).project({ nome: 1, idade: 1, tipo: 1, raca: 1, localidade: 1, observacoes:1, anunciante:1 }).toArray()
             .then((animals) => resolve(animals))
             .catch((err) => reject(err));
     });
@@ -33,7 +33,7 @@ exports.insertAnimal = (body) => {
                 raca: body.raca,
                 localidade: body.localidade,
                 observacoes: body.observacoes,
-                anunciante:body.anunciante
+                anunciante: body.anunciante
             })
             .then((res) =>  resolve({ inserted: 1, _id: res.insertedId})) 
             .catch((err) => reject(err));
