@@ -17,7 +17,7 @@ exports.getAnimal = (req, res) => {
 exports.postAnimal = (req, res) => {
 
     animalService
-        .insertAnimal(req.body)
+        .insertAnimal(req.id, req.body)
         .then(result => res.json(result))
         .catch(err => res.status(500).send(err.message));
 };

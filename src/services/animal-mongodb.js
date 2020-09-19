@@ -32,7 +32,8 @@ exports.insertAnimal = (body) => {
                 idade: body.idade,
                 raca: body.raca,
                 localidade: body.localidade,
-                observacoes: body.observacoes
+                observacoes: body.observacoes,
+                anunciante:body.anunciante
             })
             .then((res) =>  resolve({ inserted: 1, _id: res.insertedId})) 
             .catch((err) => reject(err));
