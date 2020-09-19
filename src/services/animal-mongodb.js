@@ -41,6 +41,7 @@ exports.insertAnimal = (body) => {
 };
 
 exports.updateAnimal = (id, body) => {
+    console.log("id: ",id," body: ", body);
     return new Promise((resolve, reject) => {
         db.collection("animals")
             .updateOne(
@@ -52,7 +53,8 @@ exports.updateAnimal = (id, body) => {
                         idade: body.idade,
                         raca: body.raca,
                         localidade: body.localidade,
-                        observacoes: body.observacoes
+                        observacoes: body.observacoes,
+                        anunciante: body.anunciante
                     },
                 }
             )
